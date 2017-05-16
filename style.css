@@ -1,0 +1,19 @@
+body > div {
+	padding-left: 15px;
+}
+
+.bench {
+	/*background-color: lightgreen;*/
+}
+
+.low {
+	background-color: lightgreen;
+}
+
+.medium {
+	background-color: lightyellow;
+}
+
+.high {
+	background-color: red;
+}
