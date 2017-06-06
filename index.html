@@ -4,8 +4,7 @@
     
 <head>
     <meta charset="utf-8">
-    <title>ViewResults</title>
-    <link href="../../css/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <title>Benchmark's results</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="src/angular.min.js"></script>
     <script src="src/script.js"></script>
@@ -14,59 +13,44 @@
 <body >
     <div ng-controller="mainCtrl">
 
+        <!-- keyed results -->
+        <div class="header">
+            Benchmark's keyed results:
+        </div>
+
+        <div class="table-header">
+            CPU detailed results:
+        </div>
+        <ng-include src="'src/views/keyed-view-detailed.html'"></ng-include>
+
+         <div class="table-header">
+            CPU general results:
+        </div>
+        <ng-include src="'src/views/keyed-view-general.html'"></ng-include>
+
+         <div class="table-header">
+            Memory results:
+        </div>
+
         <!-- non keyed results -->
-        <div class="page-header">
-            <div class="jumbotron">
-                <h2>Benchmark's non-keyed results:</h2>
-            </div>
+       <div class="header">
+            Benchmark's non-keyed results:
         </div>
 
-         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th ng-repeat="data in results.data | groupByFramework_nonk">
-                        {{data.key}}
-                    </th>
-                </tr>
-            </thead>
-             <tbody>
-                 <tr ng-repeat="data in results.data | groupByBenchmark_nonk ">
-                    <td class="bench">{{data.key}}</td>
-                    <td ng-repeat="item in data.value | orderBy:'framework_index'" ng-class="evalClassName(item.results.total_factor)">
-                        {{item.results.total_factor | number:2}}
-                    </td>
-                 </tr>
-             </tbody>
-         </table>
+         <div class="table-header">
+            CPU detailed results:
+        </div >
+         <ng-include src="'src/views/nonk-view-detailed.html'"></ng-include>
 
+         <div class="table-header">
+            CPU general results:
+        </div>
+         <ng-include src="'src/views/nonk-view-general.html'"></ng-include>
 
-         <!-- keyed results -->
-         <div class="page-header">
-            <div class="jumbotron">
-                <h2>Benchmark's keyed results:</h2>
-            </div>
+         <div class="table-header">
+            Memory results:
         </div>
 
-         <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th ng-repeat="data in results.data | groupByFramework_keyed">
-                        {{data.key}}
-                    </th>
-                </tr>
-            </thead>
-             <tbody>
-                 <tr ng-repeat="data in results.data | groupByBenchmark_keyed ">
-                    <td class="bench">{{data.key}}</td>
-                    <td ng-repeat="item in data.value | orderBy:'framework_index'" ng-class="evalClassName(item.results.total_factor)">
-                        {{item.results.total_factor | number:2}}
-                    </td>
-                 </tr>
-             </tbody>
-         </table>
-        
     </div>
 </body>
 

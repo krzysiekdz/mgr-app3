@@ -5,11 +5,6 @@ var results = {};
 
 app.controller('mainCtrl', ['$scope', function(s) {
 	s.results = results;
-	s.evalClassName = function(m) {
-		if(m > 1 && m <= 1.2) return 'low';
-		else if (m > 1.2 && m <= 1.5) return 'medium';
-		else if (m > 1.5 && m <= 10) return 'high';
-	};
 }]);
 
 app.run(['$http', function(http) {
@@ -53,7 +48,7 @@ app.filter('groupByFramework_nonk', function() {//grouping by framework non-keye
 				sort_index: sort_index,
 			});
 		}
-		tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
 
 		if(!angular.equals(tmp, res[0]) ) {
 			res[0] = tmp;
@@ -95,7 +90,11 @@ app.filter('groupByBenchmark_nonk', function() {//grouping by benchmark non-keye
 				sort_index: sort_index,
 			});
 		}
-		tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+		// tmp.sort(function(a,b) {
+		// 	return a.sort_index < b.sort_index;
+		// });
+		// console.log(tmp);
 
 		if(!angular.equals(tmp, res[0]) ) {
 			res[0] = tmp;
@@ -105,7 +104,7 @@ app.filter('groupByBenchmark_nonk', function() {//grouping by benchmark non-keye
 	};
 });
 
-app.filter('groupByFramework_keyed', function() {//grouping by framework keyed and returning  predefined order
+app.filter('groupByFramework_keyed', function() {//grouping traces by framework keyed and returning  predefined order
 	var res = [];
 	
 	return function(arr) {
@@ -136,7 +135,7 @@ app.filter('groupByFramework_keyed', function() {//grouping by framework keyed a
 				sort_index: sort_index,
 			});
 		}
-		tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
 
 		if(!angular.equals(tmp, res[0]) ) {
 			res[0] = tmp;
@@ -177,7 +176,7 @@ app.filter('groupByBenchmark_keyed', function() {//grouping by benchmark keyed a
 				sort_index: sort_index,
 			});
 		}
-		tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
 
 		if(!angular.equals(tmp, res[0]) ) {
 			res[0] = tmp;
@@ -187,3 +186,85 @@ app.filter('groupByBenchmark_keyed', function() {//grouping by benchmark keyed a
 	};
 });
 
+app.filter('getSummaries_keyed', function() {//getting summaries for keyed results
+	var res = [];
+	
+	return function(arr) {
+		if(arr === undefined)
+			return [];
+		var cats = {};
+		var name;
+		for(var i = 0; i < arr.length; i++) {
+			var item = arr[i];
+			if(!item.summary || (item['framework'].indexOf('keyed') < 0)) //only keyed summaries
+				continue;
+			name = item['category'];
+			if(!cats.hasOwnProperty(name)) {
+				cats[name] = [item];
+				cats[name].sort_index = item.category_index;
+			} else {
+				cats[name].push(item);
+			}
+		}
+		
+		var tmp = [];
+		for(var prop in cats) {
+			var sort_index = cats[prop].sort_index;
+			delete cats[prop].sort_index;
+			tmp.push({
+				key: prop,
+				value: cats[prop],
+				sort_index: sort_index,
+			});
+		}
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+
+		if(!angular.equals(tmp, res[0]) ) {
+			res[0] = tmp;
+		}
+
+		return res[0];
+	};
+});
+
+
+app.filter('getSummaries_nonk', function() {//getting summaries for non-keyed results
+	var res = [];
+	
+	return function(arr) {
+		if(arr === undefined)
+			return [];
+		var cats = {};
+		var name;
+		for(var i = 0; i < arr.length; i++) {
+			var item = arr[i];
+			if(!item.summary || (item['framework'].indexOf('keyed') > 0)) //only non-keyed summaries
+				continue;
+			name = item['category'];
+			if(!cats.hasOwnProperty(name)) {
+				cats[name] = [item];
+				cats[name].sort_index = item.category_index;
+			} else {
+				cats[name].push(item);
+			}
+		}
+		
+		var tmp = [];
+		for(var prop in cats) {
+			var sort_index = cats[prop].sort_index;
+			delete cats[prop].sort_index;
+			tmp.push({
+				key: prop,
+				value: cats[prop],
+				sort_index: sort_index,
+			});
+		}
+		// tmp.sort((a,b) => {return a.sort_index > b.sort_index;})
+
+		if(!angular.equals(tmp, res[0]) ) {
+			res[0] = tmp;
+		}
+
+		return res[0];
+	};
+});
