@@ -20,7 +20,8 @@ Fragment tabeli reprezentujacej wyniki badań dla frameworka angular1 oraz vanil
 
 
 Przykładowe odczyty dla add500 dla vanillajs: 
-- scrpt - scripting, czyli czas dzialania samego javascript : 7.9 (ms - zawsze milisekundy, wynik usredniony); 
+- scrpt - scripting, czyli czas dzialania samego javascript : 
+	- 7.9 (ms - zawsze milisekundy, wynik usredniony); 
 	- +- 0.56 - odchylenie standardowe z probek; 
 	- 1.00 - czas dzialania w odniesnieu do czasu vanillajs (w tym samym wierszu angular ma wartosc 6.31 - oznacza to, ze czas dzialania dla angulara, tj 49.9ms jest 6.31 razy dluższy niz dla vanillajs; vanillajs to zawsze odnosnik)
 - recalc- recalculate style - obliczanie styli (jedna z faz renderingu - kolor fioletowy)
