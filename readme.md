@@ -3,7 +3,7 @@ Mgr-App3
 
 [powrót do strony głównej](https://github.com/krzysiekdz/mgr-main) <br>
 
-Aplikacja w formie strony internetowej (angularjs) prezentującej wyniki w zestawieniu tabelarycznym uzyskane w rezultacie dzialania app1 i app2. Przetwarzany jest plik results.json. Jest to wynik końcowy działania calego projektu.
+Aplikacja w formie strony internetowej (angularjs) prezentującej wyniki w zestawieniu tabelarycznym uzyskane w rezultacie dzialania [app1](https://github.com/krzysiekdz/mgr-app1) i [app2](https://github.com/krzysiekdz/mgr-app2). Przetwarzany jest plik "results.json". Aplikacja prezentuje wynik końcowy działania calego projektu.
 
 
 
