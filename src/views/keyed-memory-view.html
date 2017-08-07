@@ -1,0 +1,67 @@
+ <table class="table-results table-memory" ng-show="flags.showMemoryKeyed">
+    <thead>
+        <tr>
+            <th ng-hide="(results.data | groupByFramework_keyed).length === 0">benchmark</th>
+            <th ng-repeat="data in results.data | groupByFramework_keyed">
+                {{data.key}}
+            </th>
+        </tr>
+    </thead>
+     <tbody>
+         <tr ng-repeat="data in results.data | groupByBenchmark_keyed:true:1:true | orderBy:'sort_index'">
+
+            <td class="bench">{{data.key}}</td>
+            <td ng-repeat="item in data.value | orderBy:'framework_index'">
+
+
+                <div class="cell-data total">
+                    <div class="cell-data-header">after</div>
+
+                    <div ng-hide="item.results.memory_after === 0">
+                        <div>{{item.results.memory_after | number:2}} </div>
+                        <div>&plusmn; {{item.results.memory_after_stdev | number:2}} </div>
+                        <div>({{item.results.mema_factor | number:2}}) </div>
+                    </div>
+                    <div ng-show="item.results.memory_after === 0" class="max-height">
+                       <div class="center">0</div>
+                    </div>
+                </div>
+
+                <div class="cell-data total">
+                    <div class="cell-data-header">before</div>
+
+                    <div ng-hide="item.results.memory_before === 0">
+                        <div>{{item.results.memory_before | number:2}} </div>
+                        <div>&plusmn; {{item.results.memory_before_stdev | number:2}} </div>
+                        <div>({{item.results.memb_factor | number:2}}) </div>
+                    </div>
+                    <div ng-show="item.results.memory_before === 0" class="max-height">
+                       <div class="center">0</div>
+                    </div>
+                </div>
+
+            </td>
+         </tr>
+
+         <tr ng-repeat="data in results.data | getSummaries_keyed:true:10:true | orderBy:'sort_index'">
+
+            <td class="bench">mem-overall</td>
+            <td ng-repeat="item in data.value | orderBy:'framework_index'">
+
+                <div class="cell-data total">
+                    <div class="cell-data-header">after</div>
+                    <div>
+                        <div>{{item.results.after | number:2}} </div>
+                    </div>
+                </div>
+                 <div class="cell-data total">
+                    <div class="cell-data-header">before</div>
+                    <div>
+                        <div>{{item.results.before | number:2}} </div>
+                    </div>
+                </div>
+
+            </td>
+         </tr>
+     </tbody>
+ </table>

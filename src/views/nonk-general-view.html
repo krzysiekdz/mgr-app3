@@ -1,54 +1,50 @@
- <table class="table-results">
+ <table class="table-results" ng-show="flags.showGeneralNonk">
     <thead>
         <tr>
-            <th ng-hide="(results.data | groupByFramework_keyed).length === 0">benchmark</th>
-            <th ng-repeat="data in results.data | groupByFramework_keyed">
+            <th ng-hide="(results.data | groupByFramework_keyed:false:1).length === 0">benchmark</th>
+            <th ng-repeat="data in results.data | groupByFramework_keyed:false:1">
                 {{data.key}}
             </th>
         </tr>
     </thead>
      <tbody>
-         <tr ng-repeat="data in results.data | getSummaries_keyed | orderBy:'sort_index'">
+         <tr ng-repeat="data in results.data | getSummaries_keyed:false:1:false | orderBy:'sort_index'">
 
             <td >{{data.key}}</td>
             <td ng-repeat="item in data.value | orderBy:'framework_index'">
 
 
-                <div class="cell-data event auto-width">
+                 <div class="cell-data event general">
+                    <div class="cell-data-header">scrpt</div>
+                    <div>{{item.results.event | number:2}} </div>
+                </div>
 
-                    <div class="inline-block">
-                        <div class="cell-data-header">scrpt</div>
-                        <div>{{item.results.event | number:2}} </div>
-                    </div>
-                    
-                    <div class="inline-block" ng-hide="item.results.gc === 0">
-                         <div class="cell-data-header">[GC]</div>
-                        <div>{{item.results.gc | number:2}} </div>
-                    </div>
-
+                <div class="cell-data event general">
+                    <div class="cell-data-header">[GC]</div>
+                    <div>{{item.results.gc | number:2}} </div>
                 </div>
                 
-                <div class="cell-data render">
+                <div class="cell-data render general">
                     <div class="cell-data-header">recalc</div>
                     <div>{{item.results.recalc | number:2}} </div>
                 </div>
 
-                <div class="cell-data render">
+                <div class="cell-data render general">
                     <div class="cell-data-header">layout</div>
                     <div>{{item.results.layout | number:2}} </div>                    
                 </div>
 
-                <div class="cell-data render">
+                <div class="cell-data render general">
                     <div class="cell-data-header">update</div>
                     <div>{{item.results.update | number:2}} </div>
                 </div>
 
-                <div class="cell-data paint">
+                <div class="cell-data paint general">
                     <div class="cell-data-header">paint</div>
                     <div>{{item.results.paint | number:2}} </div>
                 </div>
 
-                <div class="cell-data total">
+                <div class="cell-data total general">
                     <div class="cell-data-header">frame</div>
                     <div>{{item.results.total | number:2}} </div>
                 </div>

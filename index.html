@@ -8,48 +8,20 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
     <script src="src/angular.min.js"></script>
     <script src="src/script.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
 </head>
 
 <body >
     <div ng-controller="mainCtrl">
 
         <!-- keyed results -->
-        <div class="header">
-            Benchmark's keyed results:
-        </div>
-
-        <div class="table-header">
-            CPU detailed results:
-        </div>
-        <ng-include src="'src/views/keyed-view-detailed.html'"></ng-include>
-
-         <div class="table-header">
-            CPU general results:
-        </div>
-        <ng-include src="'src/views/keyed-view-general.html'"></ng-include>
-
-         <div class="table-header">
-            Memory results:
-        </div>
+       
+        <ng-include src="'src/views/keyed.html'"></ng-include>
+                
 
         <!-- non keyed results -->
-       <div class="header">
-            Benchmark's non-keyed results:
-        </div>
 
-         <div class="table-header">
-            CPU detailed results:
-        </div >
-         <ng-include src="'src/views/nonk-view-detailed.html'"></ng-include>
-
-         <div class="table-header">
-            CPU general results:
-        </div>
-         <ng-include src="'src/views/nonk-view-general.html'"></ng-include>
-
-         <div class="table-header">
-            Memory results:
-        </div>
+         <ng-include src="'src/views/nonk.html'"></ng-include>
 
     </div>
 </body>

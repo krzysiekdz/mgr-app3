@@ -1,36 +1,45 @@
- <table class="table-results">
+ <table class="table-results" ng-show="flags.showDetailedNonk">
     <thead>
         <tr>
-            <th ng-hide="(results.data | groupByFramework_keyed).length === 0">benchmark</th>
-            <th ng-repeat="data in results.data | groupByFramework_keyed">
+            <th ng-hide="(results.data | groupByFramework_keyed:false:1).length === 0">benchmark</th>
+            <th ng-repeat="data in results.data | groupByFramework_keyed:false:1">
                 {{data.key}}
             </th>
         </tr>
     </thead>
      <tbody>
-         <tr ng-repeat="data in results.data | groupByBenchmark_keyed | orderBy:'sort_index'">
+         <tr ng-repeat="data in results.data | groupByBenchmark_keyed:false:2:false | orderBy:'sort_index'">
 
             <td class="bench">{{data.key}}</td>
             <td ng-repeat="item in data.value | orderBy:'framework_index'">
 
 
-                <div class="cell-data event auto-width">
+                <div class="cell-data event">
+                    <div class="cell-data-header">scrpt</div>
 
-                    <div class="inline-block">
-                        <div class="cell-data-header">scrpt</div>
+                    <div ng-hide="item.results.event === 0">
                         <div>{{item.results.event | number:2}} </div>
                         <div>&plusmn; {{item.results.event_stdev | number:2}} </div>
                         <div>({{item.results.event_factor | number:2}}) </div>
                     </div>
-                    
-                    <div class="inline-block" ng-hide="item.results.gc === 0">
-                         <div class="cell-data-header">[GC]</div>
+                    <div ng-show="item.results.event === 0" class="max-height">
+                       <div class="center">0</div>
+                    </div>
+                </div>
+
+                <div class="cell-data event">
+                    <div class="cell-data-header">[GC]</div>
+
+                    <div ng-hide="item.results.gc === 0">
                         <div>{{item.results.gc | number:2}} </div>
                         <div>&plusmn; {{item.results.gc_stdev | number:2}} </div>
                         <div>({{item.results.gc_factor | number:2}}) </div>
                     </div>
-
+                    <div ng-show="item.results.gc === 0" class="max-height">
+                       <div class="center">0</div>
+                    </div>
                 </div>
+                
                 
                 <div class="cell-data render">
                     <div class="cell-data-header">recalc</div>
